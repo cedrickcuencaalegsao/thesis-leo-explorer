@@ -1,49 +1,70 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
+import { useEffect } from "react";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  useEffect(() => {
+    const appWindow = getCurrentWindow();
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+    const minimize = () => appWindow.minimize();
+    const maximize = () => appWindow.toggleMaximize();
+    const close = () => appWindow.close();
+
+    const minimizeButton = document.getElementById("titlebar-minimize");
+    const maximizeButton = document.getElementById("titlebar-maximize");
+    const closeButton = document.getElementById("titlebar-close");
+
+    minimizeButton?.addEventListener("click", minimize);
+    maximizeButton?.addEventListener("click", maximize);
+    closeButton?.addEventListener("click", close);
+
+    return () => {
+      minimizeButton?.removeEventListener("click", minimize);
+      maximizeButton?.removeEventListener("click", maximize);
+      closeButton?.removeEventListener("click", close);
+    };
+  }, []);
 
   return (
     <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="titlebar">
+        <div data-tauri-drag-region></div>
+        <div className="controls">
+          <button id="titlebar-minimize" title="minimize">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" d="M19 13H5v-2h14z" />
+            </svg>
+          </button>
+          <button id="titlebar-maximize" title="maximize">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" d="M4 4h16v16H4zm2 4v10h12V8z" />
+            </svg>
+          </button>
+          <button id="titlebar-close" title="close">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M13.46 12L19 17.54V19h-1.46L12 13.46L6.46 19H5v-1.46L10.54 12L5 6.46V5h1.46L12 10.54L17.54 5H19v1.46z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
     </main>
   );
 }
