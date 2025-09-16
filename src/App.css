@@ -1,3 +1,67 @@
-*[data-tauri-drag-region] {
-  app-region: drag;
+.titlebar {
+  height: 27px;
+  background: #f0f0f0;
+  user-select: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-left: 8px;
+}
+
+.titlebar > div[data-tauri-drag-region] {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.titlebar > .controls {
+  display: flex;
+  gap: 8px; /* Space between the buttons */
+  align-items: center;
+  position: absolute; /* Position controls on the left */
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.titlebar button {
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: flex; /* Use flexbox to center the icon */
+  justify-content: center;
+  align-items: center;
+  width: 12px; /* Set a fixed width */
+  height: 12px; /* Set a fixed height */
+  border-radius: 50%; /* Make the button a circle */
+  color: #000000; /* Set a default icon color */
+  transition: background-color 0.2s ease-in-out;
+  font-size: 10px; /* Adjust icon size */
+}
+
+/* Hide icons by default and show on hover */
+.titlebar button > svg {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  color: #000; /* Set a dark color for the icons */
+}
+
+.titlebar:hover button > svg {
+  opacity: 1;
+}
+
+#titlebar-close {
+  background-color: #ff5f57; /* Red */
+}
+
+#titlebar-minimize {
+  background-color: #febb2e; /* Yellow */
+}
+
+#titlebar-maximize {
+  background-color: #28c840; /* Green */
 }
