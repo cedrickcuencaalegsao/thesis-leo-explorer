@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "thesis_leo_eplorer",
+        "title": "Leo Explorer",
         "width": 800,
         "height": 600,
         "decorations": false

@@ -1,5 +1,28 @@
+/* --- Global Styles & Font Import --- */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  overflow: hidden; /* This keeps the main window from scrolling */
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Titlebar / Controls (No changes needed) --- */
 .titlebar {
-  height: 27px;
+  height: 30px;
   background: #f0f0f0;
   user-select: none;
   display: flex;
@@ -10,6 +33,7 @@
   left: 0;
   right: 0;
   padding-left: 8px;
+  z-index: 100;
 }
 
 .titlebar > div[data-tauri-drag-region] {
@@ -19,9 +43,9 @@
 
 .titlebar > .controls {
   display: flex;
-  gap: 8px; /* Space between the buttons */
+  gap: 8px;
   align-items: center;
-  position: absolute; /* Position controls on the left */
+  position: absolute;
   left: 8px;
   top: 50%;
   transform: translateY(-50%);
@@ -29,39 +53,141 @@
 
 .titlebar button {
   appearance: none;
-  padding: 0;
-  margin: 0;
   border: none;
-  display: flex; /* Use flexbox to center the icon */
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 12px; /* Set a fixed width */
-  height: 12px; /* Set a fixed height */
-  border-radius: 50%; /* Make the button a circle */
-  color: #000000; /* Set a default icon color */
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
   transition: background-color 0.2s ease-in-out;
-  font-size: 10px; /* Adjust icon size */
+  font-size: 10px;
 }
 
-/* Hide icons by default and show on hover */
 .titlebar button > svg {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
-  color: #000; /* Set a dark color for the icons */
+  color: #3b3b3b;
+  font-weight: bold;
 }
 
 .titlebar:hover button > svg {
   opacity: 1;
 }
 
-#titlebar-close {
-  background-color: #ff5f57; /* Red */
+#titlebar-close { background-color: #ff5f57; }
+#titlebar-minimize { background-color: #febb2e; }
+#titlebar-maximize { background-color: #28c840; }
+
+/* --- Main Application Layout (No changes needed) --- */
+.app-body {
+  display: flex;
+  flex-grow: 1;
+  padding-top: 30px;
+  /* height: 100vh; */
 }
 
-#titlebar-minimize {
-  background-color: #febb2e; /* Yellow */
+.main-content {
+  flex-grow: 1;
+  background: #ffffff;
+  overflow-y: auto;
 }
 
-#titlebar-maximize {
-  background-color: #28c840; /* Green */
+/* --- Sidepanel --- */
+.sidepanel {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: #2c2c2e;
+  color: #ffffff;
+  display: flex;  
+  flex-direction: column;
+  height: 100%;
+}
+
+.app-name {
+  padding: 45px 20px 0 20px;
+  flex-shrink: 0; /* ADDED: Prevents the header from shrinking */
+}
+
+.app-name h3 {
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.sidepanel-items {
+  padding: 0 20px;
+  flex-grow: 1; /* ADDED: Allows this section to fill available space */
+  overflow-y: auto; /* ADDED: Enables scrolling only on this element when needed */
+}
+
+.sidepanel-items > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0px 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.sidepanel-items > div:hover {
+  /* transform: scale(1.05); */
+  background-color: none;
+  animation: float 0.5s ease-in-out infinite;
+}
+
+.sidepanel-items svg,
+.trash-container svg {
+  margin-right: 15px;
+  font-size: 20px;
+}
+
+.trash-container {
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.trash-container-wrapper {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.trash-container-wrapper:hover {
+  background-color: #3a3a3c;
+}
+
+/* Specific Icon Colors (No changes needed) */
+.home-container svg { color: #a78bfa; }
+.photos-container svg { color: #facc15; }
+.desktop-container svg { color: #60a5fa; }
+.downloads-container svg { color: #34d399; }
+.music-container svg { color: #f97316; }
+.videos-container svg { color: #ec4899; }
+.favorites-container svg { color: #f87171; }
+.trash-container-wrapper svg { color: #ef4444; }
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.main-content{
+  background-color: #C7C7C7;
 }
