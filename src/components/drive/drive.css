@@ -1,0 +1,42 @@
+/* Using CSS variables for easy theme management */
+:root {
+  --drive-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --drive-icon-blue: #4f46e5;
+  --drive-progress-green: #22c55e;
+}
+
+.drive-item {
+  font-family: var(--drive-font-family);
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 16px;
+  gap: 16px;
+  border: 2px solid transparent; /* Border for selected state */
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* --- THEMES --- */
+.drive-item[data-theme='light'] {
+  background-color: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --progress-bg: #e5e7eb;
+  --border-color: #a5b4fc;
+}
+
+.drive-item[data-theme='dark'] {
+  background-color: #1e293b;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --progress-bg: #475569;
+  --border-color: #4f46e5;
+}
+
+/* --- SELECTED STATE --- */
+.drive-item.selected {
+  border-color: var(--border-color);
+}
+
+/* ... rest of the CSS from the previous answer ... */

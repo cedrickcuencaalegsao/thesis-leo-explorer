@@ -6,6 +6,7 @@ import { BsFileEarmarkMusic } from "react-icons/bs";
 import { RiMovieLine } from "react-icons/ri";
 import { GrFavorite } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Drive from "../drive/drive";
 
 export default function Sidepanel() {
   return (
@@ -48,7 +49,7 @@ export default function Sidepanel() {
         </div>
       </div>
       <div className="drive-container">
-        drive
+        <Drive/>
       </div>
     </div>
   );
